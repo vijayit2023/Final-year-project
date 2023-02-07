@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1">
+
+    <!-- link to css -->
+    <link rel="stylesheet" href="static\css\dashboard.css">
+
+    <!-- Line Awesome -->
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+    <title>Dashboard</title>
+</head>
+
+<body>
+
+    <input type="checkbox" id="nav-toggle">
+    <!-- side bar -->
+
+    <div class="sidebar">
+        <!-- heading -->
+        <div class="sidebar-brand">
+            <h2><span class="las la-heartbeat"></span><span>Medicare.</span></h2>
+        </div>
+
+        <!-- sidebar menu -->
+        <div class="sidebar-menu">
+            <ul>
+                <li>
+                    <a href="" class="active"><span class="las la-igloo"></span><span>Dashboard</span></a>
+                </li>
+
+                <li>
+                    <a href="{{url_for('home')}}"><span class="las la-home"></span><span>Home</span></a>
+                </li>
+
+                <li>
+                    <a href="{{url_for('form')}}"><span class="las la-user-md"></span><span>Predict</span></a>
+                </li>
+
+                <li>
+                    <a href="{{url_for('dashboard2')}}"><span
+                            class="lar la-calendar-check"></span><span>Appointment</span></a>
+                </li>
+
+                <li>
+                    <a href=""><span class="las la-chart-area"></span><span>Visualization</span></a>
+                </li>
+
+                <li>
+                    <a href="{{url_for('contact')}}"><span class="lar la-address-book"></span><span>Contact</span></a>
+                </li>
+
+                <li>
+                    <a href="{{url_for('logout')}}"><span class="lar la-address-book"></span><span>Logout</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- main content -->
+
+    <div class="main-content">
+        <header>
+            <h2>
+                <label for="nav-toggle">
+                    <span class="las la-bars"></span>
+                </label>
+
+                Dashboard
+            </h2>
+
+            <div class="search-wrapper">
+                <span class="las la-search"></span>
+                <input type="search" placeholder="search hear" />
+            </div>
+
+            <div class="user-wrapper">
+                <img src="static/img/user-image.jpg" alt="" width="40px" height="40px">
+                <div>
+                    <h4>{{ Name }}</h4>
+                    <small>{{ Email }}</small>
+                </div>
+            </div>
+        </header>
+
+        <!-- main -->
+
+        <main>
+
+            <div class="cards">
+                <!-- card 1 -->
+                <div class="card-single">
+                    <div>
+                        <h1>{{ TotalData }} +</h1>
+                        <span>Patient Record</span>
+                    </div>
+                    <div>
+                        <span class="las la-server"></span>
+                    </div>
+                </div>
+                <!-- card 2 -->
+                <div class="card-single">
+                    <div>
+                        <h1>22 +</h1>
+                        <span>Attribute </span>
+                    </div>
+                    <div>
+                        <span class="las la-digital-tachograph"></span>
+                    </div>
+                </div>
+                <!-- card 3 -->
+                <div class="card-single">
+                    <div>
+                        <h1>{{ ToatalNoOfClients }} +</h1>
+                        <span>Client</span>
+                    </div>
+                    <div>
+                        <span class="las la-user-friends"></span>
+                    </div>
+                </div>
+                <!-- card 4 -->
+                <div class="card-single">
+                    <div>
+                        <h1>{{ TotalData }} +</h1>
+                        <span>Predictions</span>
+                    </div>
+                    <div>
+                        <span class="las la-poll"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- recent flex -->
+
+            <div class="recent-grid">
+                <div class="projects">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent Predictions</h3>
+
+                            <button>see all <span class="las la-arrow-right"></span></button>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table width="100%">
+                                    <thead>
+                                        <tr>
+                                            <td>S.NO</td>
+                                            <td>BMI</td>
+                                            <td>General Health</td>
+                                            <td>Result Type</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for res in data %}
+                                        {% set i=loop.index %}
+                                        <tr>
+                                            <!-- index value -->
+                                            <td>{{ i }}</td>
+                                            <!-- BMI value -->
+                                            <td>{{ res["BMI"] }}</td>
+                                            <!-- general health level -->
+                                            {% if res["GenHlth"] == 1 %}
+                                            <td>Excellent</td>
+                                            {% elif res["GenHlth"] == 2 %}
+                                            <td>Ver Good</td>
+                                            {% elif res["GenHlth"] == 3 %}
+                                            <td>Good</td>
+                                            {% elif res["GenHlth"] == 4 %}
+                                            <td>Fair</td>
+                                            {% elif res["GenHlth"] == 5 %}
+                                            <td>Poor</td>
+                                            {% endif %}
+                                            <!-- output result type -->
+                                            {% if res["GenHlth"] <= 2 %} <td>
+                                                <span class="status orange"></span>
+                                                NO Diabetis
+                                                </td>
+                                                {% elif res["GenHlth"] <= 4 and res["GenHlth"] %} <td>
+                                                    <span class="status pink"></span>
+                                                    Type 1 Diabetis
+                                                    </td>
+                                                    {% else %}
+                                                    <td>
+                                                        <span class="status purple"></span>
+                                                        Type 2 Diabites
+                                                    </td>
+                                                    {% endif %}
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="customers">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>New Customers</h3>
+
+                            <button>see all <span class="las la-arrow-right"></span></button>
+                        </div>
+
+                        <div class="card-body">
+                            <!-- c1 -->
+                            {% for res in user %}
+                            {% set i=loop.index %}
+                            <div class="customer">
+                                <div class="info">
+                                    <img src="static/img/user-image.jpg" width="40px" height="40px" alt="">
+                                    <div>
+                                        <h4>{{ res["name"] }}</h4>
+                                        {% if res["status"] == 1 %}
+                                        <small>Email verified....</small>
+                                        {% else %}
+                                        <small>Email not verified</small>
+                                        {% endif %}
+                                    </div>
+                                    <div class="contact">
+                                        <span class="las la-user-circle"></span>
+                                        <span class="las la-comment"></span>
+                                        <span class="las la-phone"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

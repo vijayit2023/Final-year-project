@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1">
+
+    <!-- link to css -->
+    <link rel="stylesheet" href="static\css\dashboard.css">
+
+    <!-- Line Awesome -->
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+    <title>Dashboard</title>
+</head>
+
+<body>
+
+    <input type="checkbox" id="nav-toggle">
+    <!-- side bar -->
+
+    <div class="sidebar">
+        <!-- heading -->
+        <div class="sidebar-brand">
+            <h2><span class="las la-heartbeat"></span><span>Medicare.</span></h2>
+        </div>
+
+        <!-- sidebar menu -->
+        <div class="sidebar-menu">
+            <ul>
+                <li>
+                    <a href="{{url_for('dashboard')}}"><span class="las la-igloo"></span><span>Dashboard</span></a>
+                </li>
+
+                <li>
+                    <a href="{{url_for('home')}}"><span class="las la-home"></span><span>Home</span></a>
+                </li>
+
+                <li>
+                    <a href="{{url_for('form')}}"><span class="las la-user-md"></span><span>Predict</span></a>
+                </li>
+
+                <li>
+                    <a href="" class="active"><span class="lar la-calendar-check"></span><span>Appointment</span></a>
+                </li>
+
+                <li>
+                    <a href=""><span class="las la-chart-area"></span><span>Visualization</span></a>
+                </li>
+
+                <li>
+                    <a href="{{url_for('contact')}}"><span class="lar la-address-book"></span><span>Contact</span></a>
+                </li>
+
+                <li>
+                    <a href="{{url_for('logout')}}"><span class="lar la-address-book"></span><span>Logout</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- main content -->
+
+    <div class="main-content">
+        <header>
+            <h2>
+                <label for="nav-toggle">
+                    <span class="las la-bars"></span>
+                </label>
+
+                Dashboard
+            </h2>
+
+            <div class="search-wrapper">
+                <span class="las la-search"></span>
+                <input type="search" placeholder="search hear" />
+            </div>
+
+            <div class="user-wrapper">
+                <img src="static/img/user-image.jpg" alt="" width="40px" height="40px">
+                <div>
+                    <h4>{{ Name }}</h4>
+                    <small>{{ Email }}</small>
+                </div>
+            </div>
+        </header>
+
+        <!-- main -->
+        <div class="main-content-appointment">
+            <section class="book" id="book">
+
+                <h1 class="heading"> <span>book</span> now </h1>
+
+                <div class="row">
+
+                    <form action="">
+                        <h3>Book Appointment</h3>
+                        <input type="text" placeholder="Name" class="box" required>
+                        <input type="number" placeholder="Your Number" class="box" required>
+                        <input type="email" placeholder="Your Email" class="box" required>
+                        <input type="date" class="box" required>
+                        <input type="time" id="appt" name="appt" min="09:00" max="22:00" required class="box"
+                            placeholder="Your Email">
+                        <small class="box">Office hours are 9am to 10pm</small>
+                        <input type="submit" value="book now" class="btn">
+                    </form>
+
+                </div>
+
+            </section>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
